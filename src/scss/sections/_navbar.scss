@@ -21,6 +21,51 @@ nav {
         border: 0.5px solid rgba(255,255,255,0.23);
         border-top: none;
         border-bottom: none;
+        padding: 0;
+        ul {
+            display: grid;
+            grid-template-columns: repeat(5, 20%);
+            align-content: center;
+            text-align: center;
+            height: 100%;
+            list-style-type: none;
+            z-index: 1;
+            position: relative;
+            a {
+                text-decoration: none;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid transparent;
 
+                li{
+                    text-transform: uppercase;
+                    letter-spacing: .2rem;
+                    font-weight: 600;
+                    
+                }
+            }
+        }
+    }
+}
+
+.underline{
+    display: block;
+    position: absolute;
+    z-index: 0;
+    bottom: 0rem;
+    left: 0%;
+    width: 20%;
+    background-color: white;
+    height: calc(4px / 2);
+    mix-blend-mode: initial;
+    pointer-events: none;
+    transition: 0.5s ease-in-out;
+
+    &:nth-child(1){
+        transition: calc(.5s*.8) ease-in-out;
+    }&:nth-child(2){
+        transition: calc(.5s*1.2) ease-in-out;
     }
 }

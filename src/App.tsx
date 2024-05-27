@@ -18,7 +18,7 @@ function App() {
         <div className="app">
           <Navbar/>
           <Routes>
-            <Route element={<Search/>} path='/searcg'/>
+            <Route element={<Search/>} path='/search'/>
             <Route element={<MyList/>} path='/list'/>
             <Route element={<Pokemon/>} path='/pokemon/:id'/>
             <Route element={<Compare/>} path='/compare'/>
