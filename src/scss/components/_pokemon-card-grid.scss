@@ -1,5 +1,5 @@
 .pokemon-card-grid-container{
-    max-height: 96.6%;
+    max-height: 100%;
     overflow-y: scroll;
     .pokemon-card-grid{
         display: grid;
@@ -54,6 +54,7 @@
             }
             &-image{
                 height: 10rem;
+                cursor: pointer;
             }
             &-types{
                 width: 100%;
@@ -68,6 +69,8 @@
                     align-items: center;
                     &-image{
                         height: 2rem;
+                        // cursor: pointer;
+
                     }
                     &-text{
                         font-size: smaller;
