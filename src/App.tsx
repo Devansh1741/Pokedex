@@ -13,11 +13,21 @@ import Compare from './pages/Compare';
 import About from './pages/About';
 import { useAppSelector } from './app/hooks';
 import { useDispatch } from 'react-redux';
-import { clearToasts } from './app/slices/AppSlice';
+import { clearToasts, setUserStatus } from './app/slices/AppSlice';
+import { onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from './utils/FirebaseConfig';
 
 function App() {
   const {toasts} = useAppSelector(({app}) => app);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if(currentUser){
+        dispatch(setUserStatus({email: currentUser.email}))
+      }
+    })
+  }, [dispatch]);
 
   useEffect(() => {
     const toastOptions: ToastOptions = {
