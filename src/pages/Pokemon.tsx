@@ -173,6 +173,7 @@ function Pokemon() {
   }, [params, getPokemonInfo, dispatch]);
 
   return (
+    
   <div>
     {currentPokemonTab === pokemonTabs.description && <Description />}
     {currentPokemonTab === pokemonTabs.evolution && <Evolution />}

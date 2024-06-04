@@ -6,6 +6,7 @@ import { getPokemonData } from '../app/reducers/getPokemonData';
 import PokemonCardGrid from '../components/PokemonCardGrid';
 import { debounce } from '../utils/DeBounce';
 import { FaRandom } from 'react-icons/fa';
+import Loading from '../components/Loading';
 
 function Search() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function Search() {
 
   const fetchPokemon = async () => {
     if(allPokemon){
+      dispatch(getPokemonData([]));
       const clonedPokemons = [...allPokemon!];
       const randomPokemonsId = clonedPokemons.sort(() =>Math.random()-Math.random()).slice(0, 20);
       dispatch(getPokemonData(randomPokemonsId));
@@ -25,7 +27,7 @@ function Search() {
   }
 
   useEffect(() => {
-    if(allPokemon && randomPokemons === undefined){
+    if(allPokemon && (randomPokemons === undefined || randomPokemons?.length === 0)){
       fetchPokemon();
     }
 
@@ -35,6 +37,7 @@ function Search() {
 
   const getPokemon = async (value: string) => {
     if(value.length >= 3){
+      dispatch(getPokemonData([]));
       const pokemons = allPokemon?.filter((pokemon) => pokemon.name.includes(value.toLowerCase()));
       dispatch(getPokemonData(pokemons!));
     } else if (value.length === 0) {
@@ -54,7 +57,11 @@ function Search() {
           <FaRandom onClick={() => fetchPokemon()}/>
         </div>
       </div>
-      <PokemonCardGrid pokemons = {randomPokemons!}/>
+      {
+        randomPokemons ? randomPokemons!.length ?
+          <PokemonCardGrid pokemons = {randomPokemons!}/>
+          : <Loading /> : <Loading />
+      }
     </div>
     </>
   )

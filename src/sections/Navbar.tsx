@@ -18,7 +18,7 @@ function Navbar() {
     },
     {
       name: "Pokemon",
-      route: `/pokemon/${pokemonData?.id}`,
+      route: `/pokemon/${pokemonData === undefined ? 1 : pokemonData?.id}`,
     },
     {
       name: "My List",
