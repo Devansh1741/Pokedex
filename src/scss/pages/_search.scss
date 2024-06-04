@@ -1,21 +1,39 @@
 .search{
-    height: 91%;
+    height: 92%;
     width: 100%;
     max-width: 100%;
     color: white;
     text-transform: uppercase;
-    .pokemon-searchbar{
-        width: 100%;
+    .search-bar{
         height: 9%;
-        padding-left: 1rem;
-        font-size: 1.3rem;
-        background-color: rgba(255, 255, 255, .125);
-        outline: none;
-        border: none;
-        color: white;
-        box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
-        &::-webkit-input-placeholder{
+        display: grid;
+        grid-template-columns: 95% 5%;        
+        .pokemon-searchbar{
+            padding-left: 1rem;
+            width: 110%;
+            height: 100%;
+            font-size: 1.3rem;
+            background-color: rgba(255, 255, 255, .125);
+            outline: none;
+            border: none;
+            color: white;
+            box-shadow: rgba(0, 0, 0, .35) 0px 5px 15px;
+            &::-webkit-input-placeholder{
+                color: rgba(255, 255, 255, .779);
+            }
+        }
+        .svg-holder{
+            display: grid;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
             color: rgba(255, 255, 255, .779);
+            // color: var(--accent-color);
+            svg{
+                font-size: 2rem;
+                cursor: pointer;
+            }
         }
     }
 }

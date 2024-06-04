@@ -10,26 +10,51 @@ import Description from "./pokemonPages/description";
 import CapableMoves from "./pokemonPages/capableMoves";
 import Location from "./pokemonPages/location";
 import Evolution from "./pokemonPages/evolution";
+import { setCurrentPokemon } from "../app/slices/PokemonSlice";
+
+interface EvolutionDetail {
+  min_level: number | undefined;
+  trigger: {
+    name: string;
+    url: string;
+  };
+}
+
+interface Species {
+  name: string;
+  url: string;
+}
+
+interface EvolutionChain {
+  species: Species;
+  evolves_to: EvolutionChain[];
+  evolution_details: EvolutionDetail[];
+}
+
+interface EvolutionData {
+  pokemon: Species;
+  level: number;
+}
 
 function Pokemon() {
   const params = useParams();
   const dispatch = useAppDispatch();
   const {currentPokemonTab} = useAppSelector(({app}) => app);
 
-  const getRecursiveEvolution: any = useCallback(
-    (evolutionChain: any, level: number, evolutionData: any) => {
+  const getRecursiveEvolution = useCallback(
+    (evolutionChain: EvolutionChain, level: number, evolutionData: EvolutionData[]) => {
+      // console.log("Here", evolutionChain);
       if (!evolutionChain.evolves_to.length) {
-        return evolutionData.push({
+        evolutionData.push({
           pokemon: {
             ...evolutionChain.species,
-            url: evolutionChain.species.url.replace(
-              "pokemon-species",
-              "pokemon"
-            ),
+            url: evolutionChain.species.url.replace("pokemon-species", "pokemon"),
           },
           level,
         });
+        return;
       }
+
       evolutionData.push({
         pokemon: {
           ...evolutionChain.species,
@@ -37,18 +62,17 @@ function Pokemon() {
         },
         level,
       });
-      return getRecursiveEvolution(
-        evolutionChain.evolves_to[0],
-        level + 1,
-        evolutionData
-      );
+
+      evolutionChain.evolves_to.forEach((evolution) => {
+        getRecursiveEvolution(evolution, level + 1, evolutionData);
+      });
     },
     []
   );
 
   const getEvolutionData = useCallback(
-    (evolutionChain: any) => {
-      const evolutionData: any[] = [];
+    (evolutionChain: EvolutionChain): EvolutionData[] => {
+      const evolutionData: EvolutionData[] = [];
       getRecursiveEvolution(evolutionChain, 1, evolutionData);
       return evolutionData;
     },
@@ -65,16 +89,17 @@ function Pokemon() {
         data: {
           evolution_chain: { url: evolutionURL },
         },
-      } = await axios.get(`${pokemonSpeciesRoute}/${data.id}`);
+      } = await axios.get(data.species.url);
       const { data: evolutionData } = await axios.get(evolutionURL);
-
+      // console.log("Evolution", evolutionData);
+      // console.log("EvolutionUrl", evolutionURL);
       const encounters: string[] = [];
       dataEncounters.forEach((encounter: any) => {
         encounters.push(
           encounter.location_area.name.toUpperCase().split("-").join(" ")
         );
       });
-      console.log({ data });
+      // console.log({ data });
       const pokemonAbilities: { abilities: string[]; moves: string[] } = {
         abilities: data.abilities.map(
           ({ ability }: { ability: { name: string } }) => ability.name
@@ -84,10 +109,12 @@ function Pokemon() {
         ),
       };
       const evolution = getEvolutionData(evolutionData.chain);
-      const evolutionLevel = evolution.find(
-        ({ pokemon }) => pokemon.name === data.name
-      ).level;
-      console.log({
+      console.log("Evolution", evolution);
+      const evolutionEntry = evolution.find(({ pokemon }) => pokemon.name === data.name);
+      console.log("EvolutionEntry", evolutionEntry);
+      const evolutionLevel = evolutionEntry ? evolutionEntry.level : 1; // Default to 1 if not found
+
+      dispatch(setCurrentPokemon({
         id: data.id,
         name: data.name,
         types: data.types.map(
@@ -110,7 +137,7 @@ function Pokemon() {
         evolutionLevel,
         evolution,
         pokemonAbilities,
-      });
+      }));
     },
     [getEvolutionData, params.id]
   );
@@ -143,7 +170,7 @@ function Pokemon() {
     getColor();
 
     getPokemonInfo(imageElemet.src);
-  }, [params, getPokemonInfo]);
+  }, [params, getPokemonInfo, dispatch]);
 
   return (
   <div>

@@ -2,8 +2,11 @@ import React, { useEffect } from 'react'
 import pokeballIcon from "../assets/pokeball-icon.png"
 import {GiHamburgerMenu} from "react-icons/gi"
 import { Link, useLocation } from 'react-router-dom'
+import { useAppSelector } from '../app/hooks';
 function Navbar() {
   const location = useLocation();
+  const pokemonData = useAppSelector(({pokemon: {currentPokemon}}) => currentPokemon)
+
   const navigationRoutes = [
     {
       name: "Search",
@@ -15,7 +18,7 @@ function Navbar() {
     },
     {
       name: "Pokemon",
-      route: "/pokemon",
+      route: `/pokemon/${pokemonData?.id}`,
     },
     {
       name: "My List",
