@@ -1,8 +1,8 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React from 'react'
 import {FcGoogle} from "react-icons/fc"
-import { firebaseAuth, firebaseDB, usersRef } from '../utils/FirebaseConfig';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { firebaseAuth, usersRef } from '../utils/FirebaseConfig';
+import { addDoc, getDocs, query, where } from 'firebase/firestore';
 import { useAppDispatch } from '../app/hooks';
 import { setUserStatus } from '../app/slices/AppSlice';
 function Login() {

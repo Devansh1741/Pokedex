@@ -47,9 +47,6 @@ export const PokemonSlice = createSlice({
         builder.addCase(getPokemonData.fulfilled, (state, action) => {
             state.randomPokemons = action.payload;
         });
-        // builder.addCase(getPokemonData.fulfilled, (state, action) => {
-        //     state.evolutionPokemons = action.payload;
-        // });
         builder.addCase(getUserPokemons.fulfilled, (state, action) => {
             state.userPokemons = action.payload!;
         });

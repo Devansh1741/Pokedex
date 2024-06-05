@@ -35,7 +35,7 @@ function PokemonCardGrid({pokemons} : {pokemons: userPokemonsType[]}) {
                   dispatch(addToCompare(data))
                   dispatch(setToast(`${data.name.toUpperCase()} has been added to Compare Queue.`))
                 }}/></div>
-                <h3 className='pokemon-card-title'>{data.name.replace(/-/g, ' ')}</h3>
+                <h3 className='pokemon-card-title'>{data.name.replace(/-/g, ' ')  }</h3>
                 <img src={data.image} alt='pokemon' className='pokemon-card-image'
                     loading='lazy' onClick={() => {
                     dispatch(setPokemonTab(pokemonTabs.description));

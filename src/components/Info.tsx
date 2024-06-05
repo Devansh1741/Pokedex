@@ -4,7 +4,7 @@ import { useAppDispatch } from "../app/hooks";
 import { addPokemonToList } from "../app/reducers/addPokemonToList";
 import { setPokemonTab } from "../app/slices/AppSlice";
 import { pokemonTabs } from "../utils/Constants";
-import { currentPokemonType, pokemonStatType, pokemonStatsType } from "../utils/Types";
+import { currentPokemonType, pokemonStatsType } from "../utils/Types";
 
 export default function Info({
   data,

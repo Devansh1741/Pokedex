@@ -3,7 +3,7 @@ import Wrapper from "../sections/Wrapper";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import axios from "axios";
-import { pokemonRoute, pokemonSpeciesRoute, pokemonTabs } from "../utils/Constants";
+import { pokemonRoute, pokemonTabs } from "../utils/Constants";
 import { defaultImages, images } from "../utils/getPokemonImages";
 import { extractColors } from "extract-colors";
 import Description from "./pokemonPages/description";
