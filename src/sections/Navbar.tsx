@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import pokeballIcon from "../assets/pokeball-icon.png"
 import {GiHamburgerMenu} from "react-icons/gi"
 import { Link, useLocation } from 'react-router-dom'
@@ -7,7 +7,7 @@ function Navbar() {
   const location = useLocation();
   const pokemonData = useAppSelector(({pokemon: {currentPokemon}}) => currentPokemon)
 
-  const navigationRoutes = useMemo(() => [
+  const navigationRoutes = [
     {
       name: "Search",
       route: "/search",
@@ -28,7 +28,7 @@ function Navbar() {
       name: "About",
       route: "/about",
     },
-  ], [pokemonData]);
+  ];
 
   useEffect(() => {
     const index = navigationRoutes.findIndex(({route})=> location.pathname.includes(route));

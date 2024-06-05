@@ -31,7 +31,7 @@ function Search() {
       fetchPokemon();
     }
 // eslint-disable-next-line
-  }, [allPokemon, dispatch, randomPokemons])
+  }, [allPokemon, dispatch])
 
   const handleChange = debounce((value: string) => getPokemon(value), 300);
 
