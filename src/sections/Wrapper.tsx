@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 const Wrapper = (Component:React.FC) => () => {
   return <div className='content'>
     <Component />

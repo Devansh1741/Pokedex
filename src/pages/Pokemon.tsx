@@ -139,7 +139,7 @@ function Pokemon() {
         pokemonAbilities,
       }));
     },
-    [getEvolutionData, params.id]
+    [getEvolutionData, params.id, dispatch]
   );
 
   useEffect(() => {

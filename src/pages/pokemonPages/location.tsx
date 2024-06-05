@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAppSelector } from '../../app/hooks'
 import Loading from '../../components/Loading';
 
 function Location() {
   const pokemonData = useAppSelector(({pokemon: {currentPokemon}}) => currentPokemon)
-  useEffect(() => {
-    console.log(pokemonData);
-  }, [])
+
   return (
   <>
     {pokemonData ? 

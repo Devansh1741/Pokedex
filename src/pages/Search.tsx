@@ -30,8 +30,8 @@ function Search() {
     if(allPokemon && (randomPokemons === undefined || randomPokemons?.length === 0)){
       fetchPokemon();
     }
-
-  }, [allPokemon, dispatch])
+// eslint-disable-next-line
+  }, [allPokemon, dispatch, randomPokemons])
 
   const handleChange = debounce((value: string) => getPokemon(value), 300);
 
